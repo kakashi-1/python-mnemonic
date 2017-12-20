@@ -206,7 +206,7 @@ def main():
     print("Seed " + seed.encode('hex'))
     key = BIP32Key.fromEntropy(seed)
     xprv = BIP32Key.fromEntropy(seed).ExtendedKey()
-    print("Extend master private key is " + xprv)
+    print("Extended private key is " + xprv)
     
     # redefined key with extended private key 
     key = BIP32Key.fromExtendedKey(xprv)
