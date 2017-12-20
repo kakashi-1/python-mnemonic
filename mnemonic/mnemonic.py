@@ -207,15 +207,18 @@ def main():
     key = BIP32Key.fromEntropy(seed)
     xprv = BIP32Key.fromEntropy(seed).ExtendedKey()
     print("Extend master private key is " + xprv)
+    
+    # redefined key with extended private key 
+    key = BIP32Key.fromExtendedKey(xprv)
     from bip32utils import BIP32_HARDEN
-    // first address for derivation path m/44'/0'/0'
+    # first address for derivation path m/44'/0'/0'
     print(key.ChildKey(44 + BIP32_HARDEN) \
          .ChildKey(0 + BIP32_HARDEN) \
          .ChildKey(0 + BIP32_HARDEN) \
          .ChildKey(0) \
          .ChildKey(0) \
          .Address())
-    // second address for derivation path m/44'/0'/0'
+    # second address for derivation path m/44'/0'/0'
     print(key.ChildKey(44 + BIP32_HARDEN) \
          .ChildKey(0 + BIP32_HARDEN) \
          .ChildKey(0 + BIP32_HARDEN) \
