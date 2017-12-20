@@ -196,8 +196,32 @@ def main():
         data = sys.stdin.readline().strip()
     data = binascii.unhexlify(data)
     m = Mnemonic('english')
-    print(m.to_mnemonic(data))
+    
+    # example mnemonic
+    print("Mnemonic generated from entropy " + m.to_mnemonic(data))
 
+    from bip32utils import BIP32Key
+    print("\nExample mnemonic: " + "profit hood vibrant fiscal survey traffic quality rely soap fury helmet once")
+    seed = m.to_seed("profit hood vibrant fiscal survey traffic quality rely soap fury helmet once")
+    print("Seed " + seed.encode('hex'))
+    key = BIP32Key.fromEntropy(seed)
+    xprv = BIP32Key.fromEntropy(seed).ExtendedKey()
+    print("Extend master private key is " + xprv)
+    from bip32utils import BIP32_HARDEN
+    // first address for derivation path m/44'/0'/0'
+    print(key.ChildKey(44 + BIP32_HARDEN) \
+         .ChildKey(0 + BIP32_HARDEN) \
+         .ChildKey(0 + BIP32_HARDEN) \
+         .ChildKey(0) \
+         .ChildKey(0) \
+         .Address())
+    // second address for derivation path m/44'/0'/0'
+    print(key.ChildKey(44 + BIP32_HARDEN) \
+         .ChildKey(0 + BIP32_HARDEN) \
+         .ChildKey(0 + BIP32_HARDEN) \
+         .ChildKey(0) \
+         .ChildKey(1) \
+         .Address())
 
 if __name__ == '__main__':
     main()
